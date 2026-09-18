@@ -7,7 +7,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { parseWorkbook } from "@/lib/parser/parse-workbook";
 import { db } from "@/lib/db/client";
-import { categoriaMes, linhasCartao, linhasSimples, parcelamentos, resumoMes } from "@/lib/db/schema";
+import { arquivoOriginal, categoriaMes, linhasCartao, linhasSimples, parcelamentos, resumoMes } from "@/lib/db/schema";
 import type { CartaoMesData, MesData } from "@/lib/parser/types";
 
 const CHUNK_SIZE = 100;
@@ -100,6 +100,14 @@ export async function POST(req: NextRequest) {
   for (const mes of workbookData.meses) {
     await inserirMes(mes);
   }
+
+  await db
+    .insert(arquivoOriginal)
+    .values({ id: 1, conteudo: buffer, importadoEm: new Date().toISOString() })
+    .onConflictDoUpdate({
+      target: arquivoOriginal.id,
+      set: { conteudo: buffer, importadoEm: new Date().toISOString() },
+    });
 
   return NextResponse.json({
     ok: true,

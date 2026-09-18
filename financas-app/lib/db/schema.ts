@@ -4,7 +4,7 @@
 // não há edição incremental aqui, então não há necessidade de updatedAt
 // por linha.
 
-import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer, real, blob } from "drizzle-orm/sqlite-core";
 
 export const parcelamentos = sqliteTable("parcelamentos", {
   id: integer("id").primaryKey({ autoIncrement: true }),
@@ -61,4 +61,13 @@ export const categoriaMes = sqliteTable("categoria_mes", {
   mes: text("mes").notNull(),
   categoria: text("categoria").notNull(),
   valor: real("valor").notNull(),
+});
+
+// Guarda os bytes do último .xlsx importado (id fixo = 1) — é o template
+// que /api/exportar reabre e atualiza apenas nas células manuais, para não
+// duplicar a lógica de fórmulas da planilha.
+export const arquivoOriginal = sqliteTable("arquivo_original", {
+  id: integer("id").primaryKey(),
+  conteudo: blob("conteudo", { mode: "buffer" }).notNull(),
+  importadoEm: text("importado_em").notNull(),
 });

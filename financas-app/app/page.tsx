@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { buttonVariants } from "@/components/ui/button";
 import { CategoriaChart } from "@/components/charts/CategoriaChart";
 import { ParcelamentosAtivos } from "@/components/dashboard/ParcelamentosAtivos";
 import { SeletorMes } from "@/components/dashboard/SeletorMes";
@@ -40,9 +42,17 @@ export default async function Home({
   return (
     <main className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8">
       <header className="flex flex-col gap-3">
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex flex-wrap items-center justify-between gap-4">
           <h1 className="text-2xl font-semibold">Controle Financeiro</h1>
-          <ImportarPlanilha />
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/lancar" className={buttonVariants({ variant: "secondary" })}>
+              Lançar gasto
+            </Link>
+            <a href="/api/exportar" download className={buttonVariants({ variant: "outline" })}>
+              Exportar planilha
+            </a>
+            <ImportarPlanilha />
+          </div>
         </div>
         <SeletorMes meses={meses} mesSelecionado={mes} />
       </header>
