@@ -83,6 +83,33 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
+:root {
+  /* Acentos por entidade (espelham a legenda da planilha) — sempre usados ao
+     lado de um rótulo de texto, nunca como único identificador. */
+  --accent-nubank: #4a3aa7;
+  --accent-xp: #898781;
+  --accent-bradesco: #e34948;
+  --accent-receitas: #008300;
+  --accent-despesas: #eda100;
+  --accent-aportes: #2a78d6;
+  /* Rampa sequencial (azul) para o gráfico de categorias (magnitude, não identidade) */
+  --chart-categoria-100: #cde2fb;
+  --chart-categoria-400: #3987e5;
+  --chart-categoria-700: #0d366b;
+}
+
+.dark {
+  --accent-nubank: #9085e9;
+  --accent-xp: #898781;
+  --accent-bradesco: #e66767;
+  --accent-receitas: #0ca30c;
+  --accent-despesas: #c98500;
+  --accent-aportes: #3987e5;
+  --chart-categoria-100: #184f95;
+  --chart-categoria-400: #5598e7;
+  --chart-categoria-700: #cde2fb;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
